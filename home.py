@@ -6,11 +6,27 @@ def home():
     st.set_page_config(page_title = 'CVs Ask')
     st.header('CVs Ask')
 
-    if st.button("Upload documents", use_container_width=True):
-        cargar_documentos()
+    upload_files = st.file_uploader('Upload your CV', type='pdf', accept_multiple_files=True)
+    
+    if upload_files:
+        st.write("Uploaded documents!")
 
-    if st.button("Consult documents", use_container_width=True):
-        consultar_documentos()
+        for file in upload_files:
+            read_pdf(file)
+
+        description = st.text_area("Insert a job description: ")
+        #tags = st.sidebar.text_input("Insert the skills you are looking for: ")
+    
+       
+        if description:
+            response = query_db(description)
+            st.write(response)
+
+    # if st.button("Upload documents", use_container_width=True):
+    #     cargar_documentos()
+
+    # if st.button("Consult documents", use_container_width=True):
+    #     consultar_documentos()
 
 def cargar_documentos():
     upload_files = st.file_uploader('Upload your CV', type='pdf', accept_multiple_files=True)
@@ -33,5 +49,4 @@ def consultar_documentos():
 
         # if tags:
         #     st.write(description)
-
 
