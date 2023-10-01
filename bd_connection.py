@@ -1,18 +1,8 @@
-from langchain.vectorstores import Chroma
-from langchain.embeddings import TensorflowHubEmbeddings
 from langchain.embeddings.openai import OpenAIEmbeddings
-
 import chromadb
-from chromadb.config import Settings
 
-setting = Settings(
-    chroma_api_impl = "rest",
-    chroma_server_host = "localhost",
-    chroma_server_http_port = 8000
-)
 
-client = chromadb.Client(setting)
-
+client = chromadb.PersistentClient(path="chroma_data")
 client.get_version()
 
 def create_collection():

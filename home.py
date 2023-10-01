@@ -5,7 +5,6 @@ from PIL import Image
 from pathlib import Path
 from vector_db import loader_docs
 from vector_db import similarity_search, candidate_question, job_skills
-import webbrowser
 
 ####################################################################
 #####################       Parameters       #######################
@@ -68,7 +67,7 @@ def app_info():
     st.write("Made by [Kim Valenzuela](https://github.com/KimValenzuela/). Supported by EY-Chile Training Team.", unsafe_allow_html=True)
     app_spacer(1)
     st.markdown("""
-        This proyect was built as example for a training session framed in the EY-Python Chile Hackathon 2023.
+        This project was built as example for a training session framed in the Summit País Digital Hackatón by EY-Microsoft.
         """)
     app_spacer(1)
     st.markdown('')
@@ -126,8 +125,6 @@ def consultar_documentos():
             st.header('Candidates')
             col1, col2 = st.columns(2)
             for res in response:
-                # url = f"[Link](file:///home/kim/Escritorio/Pyday/Proyecto2/automatic_cv_sorter/cv_files/CV_Kimberly_Valenzuela.pdf)"
-                # st.markdown(url, unsafe_allow_html=True)
                 with col1:
                     st.write(res['source'])
                 with col2:
@@ -249,6 +246,7 @@ def app_ask_question():
             #Here we can put the model including the task, the temperature, etc
         
         q = question.strip()
+        print("Resp: ", resp)
         a = resp['text'].strip()
         ss['answer'] = a
         output_add(q,a)
@@ -297,7 +295,7 @@ def main_screen():
     upload_pdfs()
     consultar_documentos()
     app_question()
-    app_ask_question()
+    #app_ask_question()
     app_output()
 
 #home()

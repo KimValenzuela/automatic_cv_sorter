@@ -36,15 +36,24 @@ def similarity_search(text, vectordb):
     )
 
     cvs_list = []
+    source_set = set() 
+
     for resp in response:
         cvs = {}
-        cvs['source'] = resp[0].metadata['source'].split('/')[1]
-        cvs['score'] = resp[1]
-        cvs_list.append(cvs)
+        source = resp[0].metadata['source'].split("/")
+        print("SOURCE SIN SPLIT: ", resp[0].metadata['source'])
+        source = source[1] if len(source) > 1 else source[0]  
+        print("source: ", source)
+        if source not in source_set:  
+            cvs['source'] = source
+            print("score: ", resp[1])
+            cvs['score'] = resp[1]
+            cvs_list.append(cvs)
+            source_set.add(source)  
 
     return cvs_list
 
-#def return_source(cvs_list):
+
 
 
 def candidate_question(pdf, query, model, temperature, model_embed):
